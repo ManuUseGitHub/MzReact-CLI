@@ -1,0 +1,58 @@
+{
+  "name": "mzreact-cli",
+  "version": "0.2.0",
+  "description": "",
+  "main": "dist/index.min.js",
+  "bin": {
+    "mzr": "./dist/index.min.js"
+  },
+  "scripts": {
+    "install-g": "sudo npm i -g && npm run end-ins",
+    "prod": "npm run build --silent && npm run install-g --silent",
+    "build-s": "npm run build --silent",
+    "dev-build-s": "npm run dev-build --silent",
+    "build": "npm run copy-templates-models && npm run keep-dist-template && npm run compile && npm run bundle && npm run min && npm run remove-temp && npm run end-bld",
+    "dev-build": "npx rimraf dist && npm run copy-templates-models && npm run compile && npm run extract-temp && npm run end-dev-bld",
+    "bundle": "esbuild dist/TEMP/index.js --platform=node --bundle --outfile=dist/TEMP/index.bundle.js --sourcemap --external:'../package.json' && npm run end-bndl",
+    "extract-temp": "cp -r ./dist/TEMP/ ./dist/ && npm run remove-temp && npm run end-ext-tmp",
+    "remove-temp": "npx rimraf dist/TEMP && npm run end-rmv-tmp",
+    "keep-dist-template": "npx rimraf dist/{utils,templateAnalyser} && npx rimraf dist/*.* && npm run end-kee-dst-tmp",
+    "min": "esbuild ./dist/TEMP/index.bundle.js --platform=node --minify --sourcemap --outfile=./dist/index.min.js && npm run end-min",
+    "compile": "npx tsc && npm run end-cmp",
+    "copy-templates-models": "mkdir -p dist/template && cp -r ./src/template ./dist/ && npm run end-cpy-tmp-mdl",
+    "test": "jest --coverage --config jest.config.ts",
+    "watch-test": "jest --config jest.config.ts --watchAll",
+    "end-ins": "echo '[\\x1b[34m!\\x1b[37m] \\x1b[44mINSTALLED AND SET\\x1b[49m'",
+    "end-bld": "echo '[\\x1b[32m✔\\x1b[37m] \\x1b[42mBUILD FINISH\\x1b[49m'",
+    "end-dev-bld": "echo '[\\x1b[32m✔\\x1b[37m] \\x1b[42mBUILD FOR DEVELOPMENT FINISH\\x1b[49m'",
+    "end-bndl": "echo '[\\x1b[32m✔\\x1b[37m] \\x1b[32mscript files are bundled now\\x1b[37m'",
+    "end-ext-tmp": "echo '[\\x1b[32m✔\\x1b[37m] \\x1b[32mTEMP folder has been extracted from its content\\x1b[37m'",
+    "end-rmv-tmp": "echo '[\\x1b[32m✔\\x1b[37m] \\x1b[32mdist/TEMP folder is deleted from now\\x1b[37m'",
+    "end-kee-dst-tmp": "echo '[\\x1b[32m✔\\x1b[37m] \\x1b[32memptied the dist folder except the template folder\\x1b[37m'",
+    "end-min": "echo '[\\x1b[32m✔\\x1b[37m] \\x1b[32mminified all script files\\x1b[37m'",
+    "end-cmp": "echo '[\\x1b[32m✔\\x1b[37m] \\x1b[32mTypeScript has finished to compile\\x1b[37m'",
+    "end-cpy-tmp-mdl": "echo '[\\x1b[32m✔\\x1b[37m] \\x1b[32mThe model for the template has been copied successfuly\\x1b[37m'"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "chalk": "^4.1.2",
+    "commander": "^11.0.0",
+    "copyfiles": "^2.4.1",
+    "g": "^2.0.1",
+    "ts-jest": "^29.1.1",
+    "ts-node": "^10.9.1"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.23.2",
+    "@babel/preset-env": "^7.23.2",
+    "@babel/preset-typescript": "^7.23.2",
+    "@types/figlet": "^1.5.6",
+    "@types/jest": "^29.5.5",
+    "@types/node": "^20.8.6",
+    "babel-jest": "^29.7.0",
+    "esbuild": "0.19.4",
+    "typescript": "^5.2.2"
+  }
+}
