@@ -5,7 +5,86 @@ MzReact-CLI
 MzReact-CLI provides a Command Line Interface (CLI) to simplify the process of creating React components, whether in TypeScript (TS) or JavaScript (JS).
 
 **Table of Contents**
-[TOC]
+
+<div class="md-toc">
+<div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:18px">
+          <a href="#purpose" class="md-toc-link">
+            <p>Purpose</p>
+
+          </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:18px">
+          <a href="#getting-started" class="md-toc-link">
+            <p>Getting Started</p>
+
+          </a></div><details style="padding:0;;padding-left:0px;" open="">
+        <summary class="md-toc-link-wrapper">
+          <a href="#commands" class="md-toc-link"><p>Commands</p>
+</a>
+          </summary>
+        <div>
+          <details style="padding:0;;padding-left:24px;" open="">
+        <summary class="md-toc-link-wrapper">
+          <a href="#component" class="md-toc-link"><p>Component</p>
+</a>
+          </summary>
+        <div>
+          <div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
+          <a href="#flexibility" class="md-toc-link">
+            <p>Flexibility</p>
+
+          </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
+          <a href="#customization" class="md-toc-link">
+            <p>Customization</p>
+
+          </a></div>
+        </div>
+      </details>
+    <details style="padding:0;;padding-left:24px;" open="">
+        <summary class="md-toc-link-wrapper">
+          <a href="#modeling" class="md-toc-link"><p>Modeling</p>
+</a>
+          </summary>
+        <div>
+          <div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
+          <a href="#what-is-it" class="md-toc-link">
+            <p>What is it?</p>
+
+          </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
+          <a href="#composition" class="md-toc-link">
+            <p>Composition</p>
+
+          </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
+          <a href="#at-generation" class="md-toc-link">
+            <p>At Generation</p>
+
+          </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
+          <a href="#placeholder-markers" class="md-toc-link">
+            <p>Placeholder Markers</p>
+
+          </a></div>
+        </div>
+      </details>
+    <details style="padding:0;;padding-left:24px;" open="">
+        <summary class="md-toc-link-wrapper">
+          <a href="#usage" class="md-toc-link"><p>Usage</p>
+</a>
+          </summary>
+        <div>
+          <div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
+          <a href="#reclaim-a-copy-of-the-model" class="md-toc-link">
+            <p>(Re)claim a Copy of the Model</p>
+
+          </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
+          <a href="#generate-your-custom-model" class="md-toc-link">
+            <p>Generate Your Custom Model</p>
+
+          </a></div>
+        </div>
+      </details>
+    
+        </div>
+      </details>
+    
+</div>
 
 # Purpose
 >Why Do You Need It?
