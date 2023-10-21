@@ -6,6 +6,7 @@
   "bin": {
     "mzr": "./dist/index.min.js"
   },
+  "homepage": "https://github.com/ManuUseGitHub/MzReact-CLI",
   "scripts": {
     "install-g": "sudo npm i -g && npm run end-ins",
     "prod": "npm run build --silent && npm run install-g --silent",
@@ -33,14 +34,22 @@
     "end-cmp": "echo '[\\x1b[32m✔\\x1b[37m] \\x1b[32mTypeScript has finished to compile\\x1b[37m'",
     "end-cpy-tmp-mdl": "echo '[\\x1b[32m✔\\x1b[37m] \\x1b[32mThe model for the template has been copied successfuly\\x1b[37m'"
   },
-  "keywords": [],
+  "keywords": [
+    "CLI",
+    "React",
+    "typescript",
+    "ts",
+    "js",
+    "template",
+    "productivity",
+    "components"
+  ],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "chalk": "^4.1.2",
     "commander": "^11.0.0",
     "copyfiles": "^2.4.1",
-    "g": "^2.0.1",
     "ts-jest": "^29.1.1",
     "ts-node": "^10.9.1"
   },

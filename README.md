@@ -116,7 +116,7 @@ To keep the **separating the concerns** components are presented in a folder con
 - **style.\<ext>** This file will contain the style for this component. A first level prefix is set to prevent your style from leaking outside.
 
 **Component modele** (.mzr.md)
-<a href="src/template/.mzr.md">SEE EXEMPLE</a>
+[SEE EXEMPLE](https://github.com/ManuUseGitHub/MzReact-CLI/blob/master/src/template/.mzr.md)
 
 The modèle is a markdown file (.md) its filename should be **.mzr.md**. There, you can spot 3 code blocs introduced by markdown titles (**# Style**, **# Template**, and **# Index**). 
 
