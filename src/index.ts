@@ -14,8 +14,7 @@ import { MzException } from "./utils/exceptions";
 import { getActivatedOptions } from "./optionActivations";
 
 const log = console.log;
-
-export const program = new Command();
+const program = new Command();
 
 try {
 	const config = programConfig(program)
@@ -75,3 +74,5 @@ try {
 	log(chalk.bgRed.bold(err));
 	process.exit(1);
 }
+
+export { program }

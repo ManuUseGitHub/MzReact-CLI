@@ -1,8 +1,7 @@
-import chalk from "chalk";
-import { Command, Option } from "commander";
+import { Option } from "commander";
 import { detailCommand } from "./commandDetailer";
 
-export type ActivationOptionType =
+type ActivationOptionType =
     { [x: string]: boolean }
 
 const hyphenIzeArgv = () => {
@@ -18,20 +17,20 @@ const hyphenIzeArgv = () => {
     return argv;
 }
 
+const getActivatedOptions = (options: readonly Option[]): ActivationOptionType => {
+    const argv = hyphenIzeArgv();
+    const effectives = argv.slice(2);
+
+    const activated = getActivationWithLongNames(effectives, options)
+    return activated
+}
+
 const getOptionsByLetters = (options: readonly Option[]) => {
     return options.map(o => ({ [o.short!.charAt(1)]: o.long?.substring(2) })!);
 }
 
 const getOptionsByLongName = (options: readonly Option[]) => {
     return options.map(o => (o.long?.substring(2)));
-}
-
-export const getActivatedOptions = (options: readonly Option[]): ActivationOptionType => {
-    const argv = hyphenIzeArgv();
-    const effectives = argv.slice(2);
-
-    const activated = getActivationWithLongNames(effectives, options)
-    return activated
 }
 
 const getActivationWithShortNames = (argv: string, options: readonly Option[]) => {
@@ -63,3 +62,5 @@ const getActivationWithLongNames = (effectives: string[], options: readonly Opti
     const result = Object.assign(activatedLongOptions, activatedShortOptions)
     return result;
 }
+
+export { ActivationOptionType, getActivatedOptions }

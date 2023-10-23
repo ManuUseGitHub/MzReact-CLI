@@ -1,6 +1,8 @@
 import { Command, OptionValues } from "commander"
 
-export type CliProgram = {
+type CliProgram = {
     options: OptionValues | undefined,
     instance: Command | undefined
 }
+
+export { CliProgram }

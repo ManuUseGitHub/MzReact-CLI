@@ -1,26 +1,39 @@
 import { OptionValues } from "commander"
 import { ActivationOptionType } from "./optionActivations"
 
+const isViableOptions = (options: ActivationOptionType) => {
+    const keys: string[] = Object.keys(options);
+    if (keys.length == 1) {
+        const result = isViableUnary(options);
+        return result;
+    } else if (keys.length > 1) {
+        return isViableCombination(options);
+    }
+    return 0;
+}
+
 const HELP_OPTION = "help"
 const VERSION_OPTION = "version"
 
 const combination: { [x: string]: string } = {
     m: "001100",
-    c: "010100",
-    "?": "000000"
+    c: "010100"
+}
+
+const combinationToPick = (options: OptionValues) : string[] => {
+    return Object.keys(options)
+    .map(o => o.charAt(0))
+    .filter(x => combination[x]);
 }
 
 const findCombination = (options: OptionValues) => {
-    const findCombinationToPick: any[] = Object
-        .keys(options)
-        .map(o => o.charAt(0))
-        .filter(x => combination[x]);
-    if (findCombinationToPick.length > 1) {
-        return combination["?"];
+    const toPick = combinationToPick(options);
+    if (toPick.length > 1) {
+        return "0";
     }
 
-    if (findCombinationToPick.length) {
-        const entry: string = findCombinationToPick[0];
+    if (toPick.length) {
+        const entry: string = toPick[0];
         return combination[entry] || combination["?"];
     }
 }
@@ -53,14 +66,4 @@ const isViableCombination = (options: ActivationOptionType) => {
     return parseInt(combinatory, 2) & parseInt(mask, 2)
 }
 
-export const isViableOptions = (options: ActivationOptionType) => {
-    const keys: string[] = Object.keys(options);
-    if (keys.length == 1) {
-        const result = isViableUnary(options);
-        return result;
-    } else if (keys.length > 1) {
-        return isViableCombination(options);
-    }
-    return 0;
-}
-
+export { isViableOptions }
