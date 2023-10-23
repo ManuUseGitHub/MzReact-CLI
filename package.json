@@ -1,6 +1,6 @@
 {
   "name": "mzreact-cli",
-  "version": "0.3.8",
+  "version": "0.3.9",
   "description": "",
   "main": "dist/index.min.js",
   "bin": {
