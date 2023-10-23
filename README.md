@@ -4,10 +4,29 @@ MzReact-CLI
 **What We Offer**
 MzReact-CLI provides a Command Line Interface (CLI) to simplify the process of creating React components, whether in TypeScript (TS) or JavaScript (JS).
 
+---
 **Table of Contents**
 
-<!-- TOC -->autoauto- [Purpose](#purpose)auto- [Getting Started](#getting-started)auto- [Commands](#commands)auto    - [Component](#component)auto        - [Flexibility](#flexibility)auto        - [Customization](#customization)auto    - [Modeling](#modeling)auto        - [What is it?](#what-is-it)auto        - [Composition](#composition)auto        - [At Generation](#at-generation)auto        - [Placeholder Markers](#placeholder-markers)auto    - [Usage](#usage)auto        - [(Re)claim a Copy of the Model](#reclaim-a-copy-of-the-model)auto        - [Generate Your Custom Model](#generate-your-custom-model)autoauto<!-- /TOC -->
+<!-- TOC start (generated with https://github.com/derlin/bitdowntoc) -->
 
+- [MzReact-CLI](#mzreact-cli)
+- [Purpose](#purpose)
+- [Getting Started](#getting-started)
+- [Commands](#commands)
+  - [Component](#component)
+    - [Flexibility](#flexibility)
+    - [Customization](#customization)
+  - [Modeling](#modeling)
+    - [What is it?](#what-is-it)
+    - [Composition](#composition)
+    - [At Generation](#at-generation)
+    - [Placeholder Markers](#placeholder-markers)
+  - [Usage](#usage)
+    - [(Re)claim a Copy of the Model](#reclaim-a-copy-of-the-model)
+    - [Generate Your Custom Model](#generate-your-custom-model)
+
+<!-- TOC end -->
+---
 # Purpose
 >Why Do You Need It?
 Creating a component can be relatively quick and straightforward when starting fresh. However, as your project grows and becomes more complex, managing the structure and boilerplate code can become time-consuming and error-prone.
