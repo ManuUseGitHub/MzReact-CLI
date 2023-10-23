@@ -1,6 +1,5 @@
 import chalk from "chalk";
-import { Command, Option } from "commander";
-import { detailCommand } from "./commandDetailer";
+import { Command } from "commander";
 
 const log = console.log;
 

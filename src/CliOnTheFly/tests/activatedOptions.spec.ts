@@ -6,16 +6,16 @@ const program: Command = programConfig(new Command());
 describe("options", () => {
     it.each([
         [
-            ["--version","--force","--generate","-c","Test"],
-            ["version","force","generate","component"]
+            ["--version","--ff","--gg","-c","Test"],
+            ["version","ff","gg","cc"]
         ],
         [
-            ["--component","Test","-V","--force","--generate"],
-            ["version","force","generate","component"]
+            ["--cc","Test","-V","--ff","--gg"],
+            ["version","ff","gg","cc"]
         ],
         [
-            ["--component","Test","-V","-f","-g"],
-            ["version","force","generate","component"]
+            ["--cc","Test","-V","-f","-g"],
+            ["version","ff","gg","cc"]
         ]
     ])("test", (argvs: string[],expected) => {
         process.argv.length = 2;

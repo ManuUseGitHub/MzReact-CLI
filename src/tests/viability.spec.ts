@@ -1,7 +1,7 @@
 import { Command } from "commander";
-import { isViableOptions } from "../optionsCombinator";
-import { getActivatedOptions } from "../optionActivations";
-const { programConfig } = require("../setup");
+import { getActivatedOptions } from "../CliOnTheFly/optionActivations";
+import { Checker } from "../CliOnTheFly/optionCombinatorChecker";
+const { programConfig, optionMaskConfig } = require("../setup");
 
 const program: Command = programConfig(new Command());
 
@@ -9,8 +9,9 @@ const expectViable = (args: string): jest.JestMatchers<number> => {
     process.argv[2] = args;
     process.argv[3] = "test"
     const activated = getActivatedOptions(program.options);
+    const check: Checker = new Checker(optionMaskConfig);
 
-    return expect(isViableOptions(activated));
+    return expect(check.isViableOptions(activated));
 }
 
 afterEach(() => {
@@ -43,11 +44,4 @@ describe('Options rejection', function () {
     ])('[R]ejects [M]odule or [C]omponent combination %p', (x: string) => {
         expectViable(x).toBeFalsy();
     })
-});
-
-describe('Options rejection combined with version', function () {
-    it.skip.each([
-        ...'abcdefghijklmnopqrstuvwxyz'.split('').map(x => (`-V${x}`))])('[R]ejects [A]nything with [V]ersion %p', (x: string) => {
-            expectViable(x).toBeFalsy();
-        })
 });

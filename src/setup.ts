@@ -22,4 +22,16 @@ const programConfig = (program: Command) => {
     return program;
 };
 
-export { programConfig };
+const optionMaskConfig = {
+    combination:  {
+        m: "001100",
+        c: "010100"
+    },
+    pureUnaries : [
+        "help",
+        "version"
+    ],
+    orderKeys : [ "force", "reclaim", "generate", "version", "help" ]
+}
+
+export { programConfig, optionMaskConfig };

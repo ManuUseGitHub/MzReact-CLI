@@ -7,20 +7,21 @@ import chalk from "chalk";
 import { parseCommand } from "./errorsHandling";
 import { createTemplateModel, reclaimTemplateModel } from "./cmdsTemplateModel";
 import { rootifyFilePath } from "./utils/files";
-import { programConfig } from "./setup";
-import { isViableOptions } from "./optionsCombinator";
+import { optionMaskConfig, programConfig } from "./setup";
 import { Reason, SeverityEnum } from "./utils/enums";
 import { MzException } from "./utils/exceptions";
-import { getActivatedOptions } from "./optionActivations";
+import { getActivatedOptions } from "./CliOnTheFly/optionActivations";
+import { Checker } from "./CliOnTheFly/optionCombinatorChecker";
 
 const log = console.log;
 const program = new Command();
+const check: Checker = new Checker(optionMaskConfig);
 
 try {
 	const config = programConfig(program)
 
 	const activated = getActivatedOptions(program.options);
-	if (isViableOptions(activated)) {
+	if (check.isViableOptions(activated)) {
 		parseCommand(config);
 	} else {
 		throw new MzException(
