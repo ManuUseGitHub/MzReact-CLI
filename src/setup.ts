@@ -23,7 +23,7 @@ const programConfig = (program: Command) => {
 };
 
 const optionMaskConfig = {
-    combination:  {
+    combinations:  {
         m: "001100",
         c: "010100"
     },

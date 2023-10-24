@@ -10,8 +10,7 @@ import { rootifyFilePath } from "./utils/files";
 import { optionMaskConfig, programConfig } from "./setup";
 import { Reason, SeverityEnum } from "./utils/enums";
 import { MzException } from "./utils/exceptions";
-import { getActivatedOptions } from "./CliOnTheFly/optionActivations";
-import { Checker } from "./CliOnTheFly/optionCombinatorChecker";
+import { Checker, getActivatedOptions } from "mzclionfly";
 
 const log = console.log;
 const program = new Command();
