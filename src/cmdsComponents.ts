@@ -32,18 +32,18 @@ const verifyNames = (m: RegExpExecArray, folder: string) => {
 const getComponentName = (m: RegExpExecArray, folder: string): Definitions => {
     if (m[3]) {
         return {
-            name: m[2],
+            name: capitalize(m[2]),
             prefix: m[3],
         };
     }
     if (m[2]) {
         return {
-            name: folder,
+            name: capitalize(folder),
             prefix: m[2],
         };
     }
     return {
-        name: folder,
+        name: capitalize(folder),
         prefix: folder.toLowerCase().replace(" ", "-"),
     }
 }
