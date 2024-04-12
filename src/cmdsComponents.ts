@@ -1,10 +1,11 @@
 import { getContentsOfTemplateFiles } from "./templateAnalyser";
-import { CliProgram } from "./types";
+import { CliProgram, CommandMatch } from "./types";
 import { checkFolderTree, findAncestorFile, findDirBackNavigation, isFileExists, writefile } from "./utils/files";
-import { capitalize } from "./utils/strings";
+import { capitalize, isAName, isBem, isIdentifier } from "./utils/strings";
 
 // exemple : myProject/src/components/some/nested/Path:Folder:ComponentName:prefix
-const COMPONENT_PATH_DEFINITION_PATTERN = /([^:]*):?([^:]*):?([^:]*)/;
+const COMPONENT_PATH_DEFINITION_PATTERN =
+    /(?<path>[^:]*):?(?<custFolder>[^:]*):?(?<custPrefix>[^:]*)/;
 
 const cli: CliProgram = { options: undefined, instance: undefined }
 
@@ -14,32 +15,32 @@ type Definitions = {
 };
 
 const verifyNames = (m: RegExpExecArray, folder: string) => {
-    if (!/^[a-zA-Z0-9].*$/.test(folder)) {
-        cli.instance?.error("The destination folder starts illegaly first letter should be in this interval : [a-zA-Z0-9]")
-    }
+    const {custFolder,custPrefix} = m.groups as CommandMatch
 
-    if ((m[2] && !/^[a-zA-Z][a-zA-Z0-9]+$/.test(m[2])) || (
-        !m[2] && !/^[a-zA-Z][a-zA-Z0-9]*$/.test(folder))) {
+    if ((custFolder && !isAName(custFolder)) || (
+        !custFolder && !isIdentifier(folder))) {
 
         cli.instance?.error("The component name is incorrect !")
     }
 
-    else if (m[3] && !/^(?:(?:[a-z](?:-?[a-z0-9]+)*-?[a-z0-9])|([a-z]))$/.test(m[3])) {
+    else if (custPrefix && !isBem(custPrefix)) {
         cli.instance?.error("The prefix is invalid ! It should follow the BEM convention for blocks")
     }
 }
 
 const getComponentName = (m: RegExpExecArray, folder: string): Definitions => {
-    if (m[3]) {
+    const {custFolder,custPrefix} = m.groups as CommandMatch
+    console.info(custFolder, "NAME!")
+    if (custPrefix) {
         return {
-            name: capitalize(m[2]),
-            prefix: m[3],
+            name: capitalize(custFolder),
+            prefix: custPrefix,
         };
     }
-    if (m[2]) {
+    if (custFolder) {
         return {
-            name: capitalize(folder),
-            prefix: m[2],
+            name: capitalize(custFolder),
+            prefix: custFolder,
         };
     }
     return {

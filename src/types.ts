@@ -5,4 +5,10 @@ type CliProgram = {
     instance: Command | undefined
 }
 
-export { CliProgram }
+type CommandMatch = {
+    path:string,
+    custFolder:string,
+    custPrefix:string
+}
+
+export { CliProgram, CommandMatch }

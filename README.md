@@ -16,6 +16,7 @@ MzReact-CLI provides a Command Line Interface (CLI) to simplify the process of c
   - [Component](#component)
     - [Flexibility](#flexibility)
     - [Customization](#customization)
+    - [NEXT.js integration](#nextjs-integration)
   - [Modeling](#modeling)
     - [What is it?](#what-is-it)
     - [Composition](#composition)
@@ -114,6 +115,38 @@ You can also specify a custom prefix:
 ```bash
 $ mzr gc <path to components>/<folderName>:<componentName>:<prefix>
 ```
+
+See the next section for an example applyable to NEXT.js
+
+### NEXT.js integration
+Let's assume that you want to generate components for NEXT.js and create a catch all section or nested dynamic routes. You may want to have things to match the framework specifications such as
+- the component being under src
+- the file being named page, but the component being something else
+- ...
+
+First, you will need to compose a model suitable to your need. You can have more info about modeling in sections bellow.
+
+```bash
+$ mzr rm
+```
+This will generate a Markdown file for you
+![alt text](image.png)
+
+Then, change its content to be like this:
+
+![alt text](image-1.png)
+
+To finish, just run the command with `gc` to generate a component
+
+```bash
+ $ mzr gc 'my-app/src/app/blog:[...slug]:detail'
+```
+or
+```bash
+ $ mzr gc 'my-app/src/app/products:[productId]:product'
+```
+IMPORTANT:
+Do not forget to put quotes around the path if it contains square braces or it will make the command invalid.
 
 ## Modeling
 Understanding how the CLI works under the hood is essential when using it. The concept of a "component model" is central to this understanding.
