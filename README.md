@@ -124,17 +124,18 @@ Let's assume that you want to generate components for NEXT.js and create a catch
 - the file being named page, but the component being something else
 - ...
 
-First, you will need to compose a model suitable to your need. You can have more info about modeling in sections bellow.
+First, you will need to compose a model suitable to your need. 
+[Lear more about modeling](#modeling).
 
 ```bash
 $ mzr rm
 ```
 This will generate a Markdown file for you
-![alt text](image.png)
+![alt text](https://github.com/ManuUseGitHub/MzReact-CLI/raw/master/image.png)
 
 Then, change its content to be like this:
 
-![alt text](image-1.png)
+![alt text](https://github.com/ManuUseGitHub/MzReact-CLI/raw/master/image-1.png)
 
 To finish, just run the command with `gc` to generate a component
 
