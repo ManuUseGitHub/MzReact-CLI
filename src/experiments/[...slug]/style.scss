@@ -1,0 +1,10 @@
+$prefix : docs-;
+
+.#{$prefix} {
+	@at-root #{&}feat {
+        /*
+            setup your style here for 
+			docs-feat class elements and children!
+        */
+	}
+}

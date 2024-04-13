@@ -1,0 +1,10 @@
+$prefix : e-;
+
+.#{$prefix} {
+	@at-root #{&}feat {
+        /*
+            setup your style here for 
+			e-feat class elements and children!
+        */
+	}
+}

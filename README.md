@@ -16,6 +16,9 @@ MzReact-CLI provides a Command Line Interface (CLI) to simplify the process of c
   - [Component](#component)
     - [Flexibility](#flexibility)
     - [Customization](#customization)
+    - [Fast scaffolding](#fast-scaffolding)
+      - [From the command line only](#from-the-command-line-only)
+      - [From a (remote) file](#from-a-remote-file)
     - [NEXT.js integration](#nextjs-integration)
   - [Modeling](#modeling)
     - [What is it?](#what-is-it)
@@ -116,7 +119,70 @@ You can also specify a custom prefix:
 $ mzr gc <path to components>/<folderName>:<componentName>:<prefix>
 ```
 
-See the next section for an example applyable to NEXT.js
+See the next section for an exemple applyable to NEXT.js
+
+### Fast scaffolding
+One capability this CLI is great for is its possibility to generate component on the fly from fingertips in less than 5 seconds. Since its version **0.6.0**, it can generate all a set of components in one command... not only two component or three but a thausand if needed in one command !
+
+It is now possible via a simple arrow marker **=>** **commas**, and a set of 2 single **quotes**! 
+
+- Arrow : **=>** is responsible to trigger the feature
+- Commas `,` : will separate the elements
+- quotes `'` : they are mandatory but provide you more flexibility.
+
+
+#### From the command line only
+```bash
+$ mzr gc '<path to my components folder>/=>a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p ... '
+```
+
+With customization
+```bash
+$ mzr gc '<path to my components folder>/=>folderA:customComponentName,b:B:prefix,c, ...,z '
+```
+
+#### From a (remote) file
+This solution is even better. You just need to set a text file somewhere and write your composition etheir commas separated or with line feed or both ! 
+```bash
+$ mzr gc '<path to my components folder>/=><path to my text file>'
+```
+The file does not have to be located in your project! It only has to be existing at the path you specified.
+
+A to Z Exemple:
+A file from tempfolder on Mac : 
+```txt
+about
+b,
+connexion
+d:Document:doc
+e
+forgot-my-password:ForgotMyPassword
+greetings:greet
+help
+info
+javaScript:Documentation
+kotlin:Course:j-course
+_lib:Library
+m,n
+other/nested/c
+[productID]:product
+q
+[[...resources]]:resources
+[...slug]:docs
+t,u
+videos
+watch
+x,y,z
+```
+
+the command 
+```bash
+$ gfc 'src/experiments=>/var/folders/7v/n264wjns2n1dcjpqry5r2nb40000gn/T/template'
+```
+the results:
+![alt text](https://github.com/ManuUseGitHub/MzReact-CLI/raw/master/image-2.png)
+
+![alt text](https://github.com/ManuUseGitHub/MzReact-CLI/raw/master/image-3.png)
 
 ### NEXT.js integration
 Let's assume that you want to generate components for NEXT.js and create a catch all section or nested dynamic routes. You may want to have things to match the framework specifications such as

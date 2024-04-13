@@ -2,6 +2,7 @@ import fs from "fs";
 import { TemplateStateType, TemplateType } from "./types";
 import { ReadingProcess } from "./analyseProcess";
 import { BuiltTemplateState } from "./builds";
+import { readContentOfFile } from "../utils/files";
 
 export type templateFileType = {
     file: string,
@@ -10,7 +11,7 @@ export type templateFileType = {
 export const getContentsOfTemplateFiles = (
     replacements: Map<string, string>, configFilePath: string
 ) => {
-    const log = fs.readFileSync(configFilePath).toString();
+    const log = readContentOfFile(configFilePath);
     return analyse(log, replacements);
 
 };
@@ -52,5 +53,4 @@ function continueAnalyse(rProcess: ReadingProcess, state: TemplateStateType, log
     rProcess.onStopReadingTemplate();
     state.cpt++;
 }
-
 

@@ -1,0 +1,10 @@
+$prefix : Library-;
+
+.#{$prefix} {
+	@at-root #{&}feat {
+        /*
+            setup your style here for 
+			Library-feat class elements and children!
+        */
+	}
+}

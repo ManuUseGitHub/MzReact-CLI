@@ -1,0 +1,10 @@
+$prefix : greet-;
+
+.#{$prefix} {
+	@at-root #{&}feat {
+        /*
+            setup your style here for 
+			greet-feat class elements and children!
+        */
+	}
+}

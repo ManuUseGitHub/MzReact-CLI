@@ -1,0 +1,10 @@
+$prefix : q-;
+
+.#{$prefix} {
+	@at-root #{&}feat {
+        /*
+            setup your style here for 
+			q-feat class elements and children!
+        */
+	}
+}

@@ -1,0 +1,10 @@
+$prefix : product-;
+
+.#{$prefix} {
+	@at-root #{&}feat {
+        /*
+            setup your style here for 
+			product-feat class elements and children!
+        */
+	}
+}

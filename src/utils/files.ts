@@ -84,6 +84,9 @@ const rootifyFilePath = (pathArg: string | boolean) => {
     return removeDoubledSlashes(normalizedPath);
 }
 
+const readContentOfFile = (filePath: string) => 
+    fs.readFileSync(filePath).toString()
+
 const writefile = (fileName: string, content: string) => {
     fs.writeFileSync(fileName, content);
 }
@@ -110,6 +113,7 @@ export {
     rootifyFilePath,
     copyFile,
     isFileExists,
+    readContentOfFile,
     writefile,
     createFolderTree,
     createDir,
