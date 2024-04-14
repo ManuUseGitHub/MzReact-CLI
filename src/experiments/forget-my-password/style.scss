@@ -1,0 +1,10 @@
+$prefix : forgetmypassword-;
+
+.#{$prefix} {
+	@at-root #{&}feat {
+        /*
+            setup your style here for 
+			forgetmypassword-feat class elements and children!
+        */
+	}
+}

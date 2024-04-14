@@ -1,0 +1,10 @@
+$prefix : connexion-;
+
+.#{$prefix} {
+	@at-root #{&}feat {
+        /*
+            setup your style here for 
+			connexion-feat class elements and children!
+        */
+	}
+}

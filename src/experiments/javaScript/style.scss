@@ -1,0 +1,10 @@
+$prefix : Documentation-;
+
+.#{$prefix} {
+	@at-root #{&}feat {
+        /*
+            setup your style here for 
+			Documentation-feat class elements and children!
+        */
+	}
+}

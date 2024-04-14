@@ -1,0 +1,10 @@
+$prefix : slug-;
+
+.#{$prefix} {
+	@at-root #{&}feat {
+        /*
+            setup your style here for 
+			slug-feat class elements and children!
+        */
+	}
+}

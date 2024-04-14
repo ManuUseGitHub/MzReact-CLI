@@ -1,0 +1,10 @@
+$prefix : j-course-;
+
+.#{$prefix} {
+	@at-root #{&}feat {
+        /*
+            setup your style here for 
+			j-course-feat class elements and children!
+        */
+	}
+}

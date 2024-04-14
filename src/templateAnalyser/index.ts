@@ -1,4 +1,3 @@
-import fs from "fs";
 import { TemplateStateType, TemplateType } from "./types";
 import { ReadingProcess } from "./analyseProcess";
 import { BuiltTemplateState } from "./builds";

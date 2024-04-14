@@ -15,6 +15,7 @@ MzReact-CLI provides a Command Line Interface (CLI) to simplify the process of c
 - [Commands](#commands)
   - [Component](#component)
     - [Flexibility](#flexibility)
+    - [Lazy composition](#lazy-composition)
     - [Customization](#customization)
     - [Fast scaffolding](#fast-scaffolding)
       - [From the command line only](#from-the-command-line-only)
@@ -68,15 +69,15 @@ There are three types of options:
 
 Here's a summary of the available options:
 
-| Option                  | Description                                   |
-|-------------------------|-----------------------------------------------|
-| `V, --version`          | Display the CLI version                      |
-| `h, --help`             | Show help for the command                    |
-| `r, --reclaim`          | Reclaim a resource template, use with [m,...]|
-| `g, --generate`         | Introduces component generation, combine with [c,...]|
-| `f, --force`            | Force the action                             |
-| `c, --component <value>`| Specify the component name                  |
-| `m, --modeling [value]` | Updates the component design model           |
+| Option                   | Description                                           |
+| ------------------------ | ----------------------------------------------------- |
+| `V, --version`           | Display the CLI version                               |
+| `h, --help`              | Show help for the command                             |
+| `r, --reclaim`           | Reclaim a resource template, use with [m,...]         |
+| `g, --generate`          | Introduces component generation, combine with [c,...] |
+| `f, --force`             | Force the action                                      |
+| `c, --component <value>` | Specify the component name                            |
+| `m, --modeling [value]`  | Updates the component design model                    |
 
 ## Component
 The most crucial binary option is the "component." This option enables you to create components following a structured model that emphasizes the separation of concerns. All generated components are folder-based, aligning with React's flexibility to create components in various ways.
@@ -104,7 +105,48 @@ $ mzr gc src/pages/MyComponent --force
 ```
 
 ### Flexibility
-You don't need to create intermediate folders if they don't exist. You can create a component within a path like "src/my components/an/extremely/long/path/MyComponent" without creating each folder manually. Just ensure that the target folders do not contain any files.
+The main goal of the CLI is to make the process of creating new components effortless and fast. Give the path to the future component and it will d all the magic for you.
+You can also decide the name of the component class to be different from the folder containing it via **customization**.
+
+### Lazy composition
+By default, components are generated with a Class matching the Folder they are in. The mechanism is considered lazy so, you can scafold fastly. Taking folders of a NEXT js application, the way they are written differs sometimes drastically from a valid component name. The lazy generation helps to address the issue without having to do **customizations**...
+
+There is not magic but a REGEX behind the behaviour:
+```js
+const HYPHENED = "(?<hyphened>\\w+(?:\\-\\w+)+)";
+const WITH_QUALIFIER = "\\[(?<with>[a-z\\d-]+)(?<qualify>.+)\\]";
+const CATCH_ALL = "\\[{1,2}\\.{3}(?<all>[\\w\\-]+)\\]{1,2}";
+const GROUP = "\\((?<group>[\\w\\-]+)\\)";
+const RESERVED = "[@_](?<reserved>[\\w\\-]+)";
+const AT_ORIGIN = "(?<same>\\.)";
+const SERGMENTATION = "(?:(?:[\\/\\\\]?(?:[^\\/\\\\]+[\\/\\\\])+))"
+const SUB_PATH = `(?<subpath>${SEGMENTATION}|[\\/\\\\])`;
+const NESTED = "(?<nested>[^\\/\\\\]+)";
+const HAS_NESTing = `(?:${SUB_PATH}${NESTED}[\\/\\\\]?)`
+const pattern = `^(?:${[
+  HYPHENED,WITH_QUALIFIER,CATCH_ALL,GROUP,RESERVED,AT_ORIGIN,HAS_NESTing
+].join("|")})$`;
+
+///^(?:(?<hyphened>\w+(?:\-\w+)+)|\[(?<with>[a-z\d-]+)(?<qualify>.+)\]|\[{1,2}\.{3}(?<all>[\w\-]+)\]{1,2}|\((?<group>[\w\-]+)\)|[@_](?<reserved>[\w\-]+)|(?<same>\.)|(?:(?<subpath>(?:(?:[\/\\]?(?:[^\/\\]+[\/\\])+))|[\/\\])(?<nested>[^\/\\]+)[\/\\]?))$/m
+const PARSED_TO_NAME = RegExp(pattern,"m");
+```
+
+assuming that you wish to create components under : `src/app/components/experiments`,
+
+| folder to create | translation |
+| ---------------- | ----------- |
+| `.`              | Experiments |
+
+
+NEXT.js
+| folder to create          | translation      |
+| ------------------------- | ---------------- |
+| `[productID]`             | Product          |
+| `(grouped)`               | Grouped          |
+| `[...catchAll]`           | CatchAll         |
+| `[[...optionalCatchAll]]` | OptionalCatchAll |
+| `_lib`                    | Lib              |
+| `@parallel`               | Parallel         |
 
 ### Customization
 You may want to give your component a different name from the folder identifier. To customize the generation, use a colon symbol ":" in the component name value.

@@ -1,0 +1,10 @@
+$prefix : videos-;
+
+.#{$prefix} {
+	@at-root #{&}feat {
+        /*
+            setup your style here for 
+			videos-feat class elements and children!
+        */
+	}
+}
