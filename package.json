@@ -8,7 +8,8 @@
   },
   "homepage": "https://github.com/ManuUseGitHub/MzReact-CLI",
   "scripts": {
-    "postinstall": "sudo npm i -g --ignore-scripts && npm run end-ins",
+    "postinstall": "sudo npm run install-g",
+    "install-g": "npm i -g --ignore-scripts && npm run end-ins",
     "prod": "npm run build --silent && npm run install-g --silent",
     "build-s": "npm run build --silent",
     "dev-build-s": "npm run dev-build --silent",
