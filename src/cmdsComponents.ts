@@ -1,6 +1,6 @@
 import chalk from "chalk";
 import { getContentsOfTemplateFiles } from "./templateAnalyser";
-import { CliProgram, CommandMatch } from "./types";
+import { CliProgram, CommandMatch, DefinitionCandidate } from "./types";
 import { checkFolderTree, findAncestorFile, findDirBackNavigation, isFileExists, readContentOfFile, writefile } from "./utils/files";
 import { capitalize, isAName, isBem, isIdentifier } from "./utils/strings";
 import {
@@ -32,9 +32,9 @@ const verifyNames = (m: RegExpExecArray, folder: string) => {
 }
 
 const exists = (x: string | undefined) => x !== "" && x !== undefined;
-const toCamelCase = (s: string) => s.replace(/-([a-z])/g, (g) => g[1].toUpperCase()); //
+const hyphenToCamelCase = (s: string) => s.replace(/-([a-zA-Z])/g, (g) => g[1].toUpperCase()); //
 
-const getTransformed = (basePath: string, x: string): string => {
+export const getTransformed = (basePath: string, x: string): string => {
     let m;
     if ((m = PARSED_TO_NAME.exec(x))) {
         const groups = m.groups!;
@@ -44,7 +44,7 @@ const getTransformed = (basePath: string, x: string): string => {
             return getTransformed(basePath, path === "." ? basePath : path); //
         }
         if (groups.hyphened) {
-            return toCamelCase(groups.hyphened);
+            return hyphenToCamelCase(groups.hyphened);
         }
 
         return Object.entries(groups)
@@ -107,21 +107,24 @@ const createReplacementsMapping = (folderTree: string, componentNames: Definitio
     ]);
 }
 
-const pathArgsAsList = (pathArg: string) => {
+export const pathArgsAsList = (pathArg: string) => {
     const m = COMPONENT_PATH_HAVING_MULTIPLE_DEFINITIONS.exec(pathArg);
     if (m) {
         let { base, subPathDefinitions } = m.groups as any;
-
-        if (isFileExists(subPathDefinitions)) {
-            subPathDefinitions = readContentOfFile(subPathDefinitions)
-                .split("\n").join(",").replace(",,", ',');
+        const definitions = candidatesFromPressetFile(base, subPathDefinitions);
+        if (definitions.length) {
+            return definitions;
         }
-
-        return subPathDefinitions
-            .split(",")
-            .map((sub: string) => (base + "/" + sub).replace("//", "/"));
     }
     return [pathArg];
+}
+
+function pushCandidate({ definitions, definition, base }: DefinitionCandidate) {
+    definition
+        .split(",")
+        .map((sub: string) => (base + "/" + sub).replace("//", "/")).forEach(x => {
+            definitions.push(x)
+        })
 }
 
 const createComponent = (pathArg: string) => {
@@ -131,16 +134,19 @@ const createComponent = (pathArg: string) => {
     };
     // TODO: change here
     const m = COMPONENT_PATH_HAVING_MULTIPLE_DEFINITIONS.exec(pathArg)
-    const base = m ? m[1] : pathArg ;
+    const base = m ? m[1] : pathArg;
+
     pathArgsAsList(pathArg).forEach((definition: string) => {
+
         const m = COMPONENT_PATH_DEFINITION_PATTERN.exec(definition);
+
         if (m) {
             const filepath = m[1];
             const folder = capitalize(
                 filepath.substring(filepath.lastIndexOf("/") + 1)
             );
             try {
-                const transformed = getTransformed(base, folder)
+                const transformed = getTransformed(base, folder);
                 verifyNames(m, transformed);
                 const folderTree = checkFolderTree(filepath, onReadFile);
                 let componentNames = getComponentName(m, transformed);
@@ -170,8 +176,23 @@ function commandConclusion(messages: { success: string[]; fail: { [x: string]: s
     if (failures.length) {
         result.push(`\x1b[37m[\x1b[31mx\x1b[37m] \x1b[31m ${failures.length} component(s) failed to be created\n${Object.entries(messages.fail).map(x => {
             const [name, message] = x
-            return `\x1b[31m    x \x1b[41m\x1b[37m${name}\n\x1b[31m\x1b[49m      ${message}\n`
+            return `\x1b[31m    x \x1b[41m\x1b[37m"${name}"\n\x1b[31m\x1b[49m      ${message}\n`
         }).join("\n")}`)
     }
     return result.join("\n")
 }
+
+function candidatesFromPressetFile(base: any, subPathDefinitions: any) {
+    const definitions: string[] = []
+    subPathDefinitions.split(",")
+        .forEach((definition: string) => {
+            if (isFileExists(definition)) {
+                definition = readContentOfFile(definition)
+                    .split("\n").join(",").replace(",,", ',');
+            }
+
+            pushCandidate({ definitions, definition, base })
+        });
+    return definitions;
+}
+

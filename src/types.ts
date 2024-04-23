@@ -6,9 +6,15 @@ type CliProgram = {
 }
 
 type CommandMatch = {
-    path:string,
-    custFolder:string,
-    custPrefix:string
+    path: string,
+    custFolder: string,
+    custPrefix: string
 }
 
-export { CliProgram, CommandMatch }
+type DefinitionCandidate = {
+    definitions: string[];
+    definition: string;
+    base: string;
+};
+
+export { CliProgram, CommandMatch, DefinitionCandidate }
